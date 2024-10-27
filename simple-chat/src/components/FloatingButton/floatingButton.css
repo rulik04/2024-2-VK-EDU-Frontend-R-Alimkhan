@@ -1,0 +1,10 @@
+.floating-button-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+
+    border-radius: 50%;
+    background-color: #008069;
+    padding: 15px;
+}
