@@ -58,6 +58,6 @@ newChatBtn.addEventListener("click", () => {
     };
     chats.push(newChat);
     localStorage.setItem("chats", JSON.stringify(chats));
-    window.location.href = `/chat.html?chatId=${newChat.chatId}`;
+    window.location.href = `/2024-2-VK-EDU-Frontend-R-Alimkhan/chat.html?chatId=${newChat.chatId}`;
 });
 app.appendChild(newChatBtn);

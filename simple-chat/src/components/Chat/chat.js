@@ -61,7 +61,7 @@ export function createChat(
     chat.appendChild(chatInfo);
 
     chat.addEventListener("click", () => {
-        window.location.href = `/chat.html?chatId=${chatId}`;
+        window.location.href = `/2024-2-VK-EDU-Frontend-R-Alimkhan/chat.html?chatId=${chatId}`;
     });
 
     return chat;
