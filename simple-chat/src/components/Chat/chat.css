@@ -3,8 +3,19 @@
     align-items: center;
     background-color: azure;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 15px 20px;
     border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chat:hover {
+    background-color: #e3f2fd;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat:hover .chat-image {
+    transform: scale(1.1);
 }
 
 .chat-image {
@@ -13,6 +24,7 @@
     border-radius: 50%;
     margin-right: 25px;
     object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
 .chat-main {
@@ -42,8 +54,8 @@
     background-color: #008069;
     color: white;
     border: 1px solid #008069;
-    border-radius: 25%;
+    border-radius: 50%;
     padding: 4px 8px;
-    font-size: 10px;
+    font-size: 12px;
     margin-left: 8px;
 }

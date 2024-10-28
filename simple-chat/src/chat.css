@@ -53,6 +53,13 @@
     justify-content: end;
 }
 
-.material-symbols-outlined.done_all {
-    color: green;
+.message {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.message.visible {
+    opacity: 1;
+    transform: scale(1);
 }

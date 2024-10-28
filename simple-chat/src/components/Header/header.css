@@ -26,3 +26,11 @@
     padding: 0;
     margin: 0;
 }
+
+.header-info {
+    position: relative;
+}
+
+.header-info.active .dropdown {
+    display: flex;
+}

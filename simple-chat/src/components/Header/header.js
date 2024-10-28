@@ -1,8 +1,11 @@
 import "./header.css";
 
+import { createDropdown } from "../Dropdown/dropdown.js";
+
 export function createHeader(
     titleText,
     pageType,
+    chatId = null,
     userAvatar = null,
     status = null
 ) {
@@ -52,7 +55,21 @@ export function createHeader(
     headerInfo.appendChild(createIcon("search"));
 
     if (pageType === "personalChat") {
-        headerInfo.appendChild(createIcon("more_vert"));
+        const moreVertIcon = createIcon("more_vert");
+        headerInfo.appendChild(moreVertIcon);
+
+        const dropdown = createDropdown(["Mute", "Block", "Delete"], chatId);
+        headerInfo.appendChild(dropdown);
+
+        moreVertIcon.addEventListener("click", () => {
+            headerInfo.classList.toggle("active");
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!headerInfo.contains(e.target)) {
+                headerInfo.classList.remove("active");
+            }
+        });
     }
 
     header.appendChild(container);
