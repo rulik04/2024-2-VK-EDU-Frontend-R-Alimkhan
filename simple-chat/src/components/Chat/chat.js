@@ -28,7 +28,6 @@ export function createChat(
         lastMessage = lastMessage.slice(0, 20) + "...";
     }
     chatLastMessage.innerText = lastMessage;
-    console.log(lastMessage);
     chatMain.appendChild(chatLastMessage);
 
     chat.appendChild(chatImage);

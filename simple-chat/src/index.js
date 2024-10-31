@@ -50,8 +50,9 @@ newChatBtn.addEventListener("click", () => {
     const chatName = prompt("Enter the name of the new contact:");
     if (!chatName) return;
 
+    const newChatId = chats.length > 0 ? chats[chats.length - 1].chatId + 1 : 1;
     const newChat = {
-        chatId: chats.length + 1,
+        chatId: newChatId,
         chatName,
         avatar: DEFAULT_AVATAR_URL,
         messages: [],

@@ -10,7 +10,7 @@ const currentChat = chats.find((chat) => chat.chatId === chatId);
 
 if (!currentChat) {
     alert("Chat not found!");
-    window.location.href = "/";
+    window.location.href = "/2024-2-VK-EDU-Frontend-R-Alimkhan/";
 }
 
 currentChat.messages.forEach((message) => {
@@ -25,6 +25,7 @@ app.prepend(
     createHeader(
         currentChat.chatName,
         "personalChat",
+        currentChat.chatId,
         currentChat.avatar,
         currentChat.status
     )
@@ -69,7 +70,6 @@ function sendMessage() {
 function addMessageToChat(message) {
     const messageElement = document.createElement("div");
     messageElement.classList.add("message", message.type);
-
     const messageContent = document.createElement("span");
     messageContent.innerText = message.text;
 
@@ -93,6 +93,10 @@ function addMessageToChat(message) {
     messageElement.appendChild(messageInfo);
 
     chatMain.prepend(messageElement);
+
+    setTimeout(() => {
+        messageElement.classList.add("visible");
+    }, 10);
 }
 
 document

@@ -11,7 +11,7 @@ export function createFooter() {
     input.name = "message-text";
 
     const attachBtn = document.createElement("span");
-    attachBtn.className = "material-symbols-outlined";
+    attachBtn.className = "material-symbols-outlined attachment";
     attachBtn.innerText = "attachment";
 
     const sendBtn = document.createElement("span");
