@@ -1,68 +1,63 @@
 import "./index.css";
+import "./loadChats.js";
+import { createHeader } from "./components/Header/header.js";
+import { createChat } from "./components/Chat/chat.js";
+import { createFloatingButton } from "./components/FloatingButton/floatingButton.js";
 
-document
-    .querySelector(".form-input")
-    .addEventListener("keypress", function (event) {
-        if (event.key === "Enter" && !event.shiftKey) {
-            event.preventDefault();
-            sendMessage();
-        }
-    });
+const DEFAULT_AVATAR_URL =
+    "https://www.clipartmax.com/png/full/258-2582267_circled-user-male-skin-type-1-2-icon-male-user-icon.png";
 
-document.querySelector(".send").addEventListener("click", sendMessage);
+const app = document.querySelector(".chat-container");
+app.appendChild(createHeader("Messenger", "chats"));
 
-function sendMessage() {
-    const messageInput = document.querySelector(".form-input");
-    const messageText = messageInput.value.trim();
+let chats = JSON.parse(localStorage.getItem("chats")) || [];
+chats = chats.filter((chat) => chat.messages.length > 0);
+localStorage.setItem("chats", JSON.stringify(chats));
 
-    if (messageText !== "") {
-        const currentMessages =
-            JSON.parse(localStorage.getItem("chatMessages")) || [];
-        const message = {
-            text: messageText,
-            time: new Date().toLocaleTimeString("ru-RU", {
-                hour: "numeric",
-                minute: "numeric",
-            }),
-            type: "sent",
-        };
-
-        currentMessages.push(message);
-        localStorage.setItem("chatMessages", JSON.stringify(currentMessages));
-
-        addMessageToChat(message);
-        messageInput.value = "";
-        messageInput.style.height = "auto";
+const displayChats = () => {
+    if (chats.length === 0) {
+        app.appendChild(
+            (document.createElement("p").innerText = "No chats available")
+        );
+        return;
     }
-}
 
-function addMessageToChat(message) {
-    const chatMain = document.querySelector(".chat-main");
-    const messageElement = document.createElement("div");
-    messageElement.classList.add("message");
+    chats.forEach((chat) => {
+        const lastMessage = chat.messages[chat.messages.length - 1];
+        const unreadCount = chat.messages.filter(
+            (msg) => msg.type === "received" && msg.status === "unread"
+        ).length;
+        const lastMessageStatus =
+            lastMessage.type === "sent" ? lastMessage.status : "";
 
-    messageElement.classList.add(message.type === "sent" ? "sent" : "received");
+        app.appendChild(
+            createChat(
+                chat.chatId,
+                chat.chatName,
+                lastMessage.text,
+                lastMessage.time,
+                lastMessageStatus,
+                chat.avatar || DEFAULT_AVATAR_URL,
+                unreadCount
+            )
+        );
+    });
+};
+displayChats();
 
-    messageElement.innerHTML = `
-        <span>${message.text}</span>
-        <div class="message-time">
-            <span>${message.time}</span>
-            <span class="material-symbols-outlined">check</span>
-        </div>
-    `;
+const newChatBtn = createFloatingButton();
+newChatBtn.addEventListener("click", () => {
+    const chatName = prompt("Enter the name of the new contact:");
+    if (!chatName) return;
 
-    chatMain.appendChild(messageElement);
-    chatMain.scrollTop = chatMain.scrollHeight;
-}
-
-window.addEventListener("load", function () {
-    const storedMessages =
-        JSON.parse(localStorage.getItem("chatMessages")) || [];
-    storedMessages.forEach(addMessageToChat);
+    const newChat = {
+        chatId: chats.length + 1,
+        chatName,
+        avatar: DEFAULT_AVATAR_URL,
+        messages: [],
+    };
+    chats.push(newChat);
+    localStorage.setItem("chats", JSON.stringify(chats));
+    window.location.href = `/2024-2-VK-EDU-Frontend-R-Alimkhan/chat.html?chatId=${newChat.chatId}`;
 });
-
-const textarea = document.querySelector(".form-input");
-textarea.addEventListener("input", () => {
-    textarea.style.height = "auto";
-    textarea.style.height = `${textarea.scrollHeight}px`;
-});
+app.appendChild(newChatBtn);
