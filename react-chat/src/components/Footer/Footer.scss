@@ -14,12 +14,8 @@
     outline: none;
     resize: none;
     word-wrap: break-word;
-}
-
-.material-symbols-outlined {
-    cursor: pointer;
-    font-size: 24px;
-    margin-left: 10px;
+    overflow: hidden;
+    transition: height 0.2s ease-out;
 }
 
 .send {
