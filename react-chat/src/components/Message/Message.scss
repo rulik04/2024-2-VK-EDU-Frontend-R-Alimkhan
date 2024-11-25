@@ -1,0 +1,55 @@
+.message {
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    max-width: 60%;
+    width: fit-content;
+    word-wrap: break-word;
+
+    &.sent {
+        background-color: var(--sent-message-color);
+        margin-left: auto;
+        text-align: right;
+    }
+
+    &.received {
+        background-color: var(--received-message-color);
+        margin-right: auto;
+    }
+
+    .message-content {
+        color: var(--primary-text-color);
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    .message-time {
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 5px;
+
+        span {
+            color: var(--icon-color);
+            font-size: 0.8rem;
+        }
+
+        svg {
+            color: var(--icon-color);
+            font-size: 1rem;
+            cursor: pointer;
+        }
+    }
+}
+
+.message {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    &.visible {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
