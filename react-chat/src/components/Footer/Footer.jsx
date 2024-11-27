@@ -1,12 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import SendIcon from "@mui/icons-material/Send";
-import {
-    getChatsFromStorage,
-    saveChatsToStorage,
-} from "../../utils/storageUtils";
-import { formatTime } from "../../utils/dateUtils";
-import { MESSAGE_STATUS, MESSAGE_TYPE } from "../../utils/messageConstants";
+import { getChatsFromStorage, saveChatsToStorage } from "@/utils/storageUtils";
+import { MESSAGE_STATUS, MESSAGE_TYPE } from "@/utils/messageConstants";
 import "./Footer.scss";
 
 export const Footer = ({ chatId }) => {
@@ -23,35 +19,38 @@ export const Footer = ({ chatId }) => {
 
         const message = {
             text: trimmedText,
-            time: formatTime(new Date()),
+            time: new Date().toISOString(),
             type: MESSAGE_TYPE.SENT,
             status: MESSAGE_STATUS.UNREAD,
         };
 
         const chats = getChatsFromStorage();
-        const currentChat = chats.find((chat) => chat.chatId === chatId);
+        const currentChat = chats.find(
+            (chat) => chat.chatId === parseInt(chatId)
+        );
 
         if (currentChat) {
             currentChat.messages.push(message);
             saveChatsToStorage(chats);
-            setMessageText("");
+            setMessageText(""); // Очищаем текстовое поле
         }
 
         if (textareaRef.current) {
-            textareaRef.current.style.height = "auto";
+            textareaRef.current.style.height = "auto"; // Сбрасываем высоту поля
         }
     };
 
     const handleKeyPress = (event) => {
         if (event.key === "Enter" && !event.shiftKey) {
-            sendMessage();
+            event.preventDefault(); // Предотвращаем перенос строки
+            sendMessage(); // Отправляем сообщение
         }
     };
 
     useEffect(() => {
         if (textareaRef.current) {
-            textareaRef.current.style.height = "auto";
-            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+            textareaRef.current.style.height = "auto"; // Сбрасываем высоту на авто
+            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // Подстраиваем высоту под содержимое
         }
     }, [messageText]);
 

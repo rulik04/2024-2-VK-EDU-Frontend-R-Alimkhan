@@ -1,7 +1,7 @@
 import "./Chat.scss";
 import CheckIcon from "@mui/icons-material/Check";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-
+import { formatTime, formatDate } from "@/utils/dateUtils";
 export const Chat = ({
     chatName,
     lastMessage,
@@ -30,7 +30,9 @@ export const Chat = ({
             </div>
 
             <div className="chat-info">
-                <p className="time">{time}</p>
+                <p className="time">
+                    {formatDate(time)} {formatTime(time)}
+                </p>
                 {isRead === "read" && <DoneAllIcon />}
                 {isRead === "unread" && <CheckIcon />}
                 {unread > 0 && <span className="unread">{unread}</span>}

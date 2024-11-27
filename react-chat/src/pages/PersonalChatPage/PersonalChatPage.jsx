@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
-import { Header } from "../../components/Header/Header";
-import { Footer } from "../../components/Footer/Footer";
+import { Header } from "@/components/Header/Header";
+import { Footer } from "@/components/Footer/Footer";
 import "./PersonalChatPage.scss";
-import { markMessagesAsRead } from "../../utils/messageUtils";
-import {
-    getChatsFromStorage,
-    saveChatsToStorage,
-} from "../../utils/storageUtils";
-import { Message } from "../../components/Message/Message";
+import { markMessagesAsRead } from "@/utils/messageUtils";
+import { getChatsFromStorage, saveChatsToStorage } from "@/utils/storageUtils";
+import { Message } from "@/components/Message/Message";
+import { useParams } from "react-router-dom";
 
-export const PersonalChatPage = ({ chatId, onBackClick }) => {
-    chatId = parseInt(chatId, 10);
+export const PersonalChatPage = () => {
+    const { chatId } = useParams();
     const chats = getChatsFromStorage();
-    const currentChat = chats.find((chat) => chat.chatId === chatId);
+    const currentChat = chats.find((chat) => chat.chatId === parseInt(chatId));
 
     if (!currentChat) {
         alert("Chat not found!");
@@ -32,11 +30,7 @@ export const PersonalChatPage = ({ chatId, onBackClick }) => {
 
     return (
         <div className="chat-container">
-            <Header
-                title={currentChat.chatName}
-                chatId={currentChat.chatId}
-                onBackClick={onBackClick}
-            />
+            <Header title={currentChat.chatName} chatId={currentChat.chatId} />
 
             <div className="main">
                 {currentChat.messages.map((message, index) => (
