@@ -8,13 +8,13 @@ function loadChat() {
             messages: [
                 {
                     text: "Hey! I'm good, thanks. How about you?",
-                    time: "10:00",
+                    time: "2024-11-26T10:00:00",
                     type: "received",
                     status: "read",
                 },
                 {
                     text: "Just got back from the race!",
-                    time: "10:05",
+                    time: "2024-11-26T10:05:00",
                     type: "sent",
                     status: "unread",
                 },
@@ -28,13 +28,13 @@ function loadChat() {
             messages: [
                 {
                     text: "Looking forward to it!",
-                    time: "9:00",
+                    time: "2024-11-26T09:25:00",
                     type: "sent",
                     status: "read",
                 },
                 {
                     text: "Have a safe trip!",
-                    time: "9:30",
+                    time: "2024-11-26T09:30:00",
                     type: "received",
                     status: "read",
                 },
@@ -48,19 +48,19 @@ function loadChat() {
             messages: [
                 {
                     text: "Sounds good! Where should we meet?",
-                    time: "8:00",
+                    time: "2024-11-26T08:00:00",
                     type: "sent",
                     status: "read",
                 },
                 {
                     text: "At the usual spot?",
-                    time: "8:05",
+                    time: "2024-11-26T08:05:00",
                     type: "received",
                     status: "unread",
                 },
                 {
                     text: "Don't forget to bring the tickets!",
-                    time: "8:10",
+                    time: "2024-11-26T08:10:00",
                     type: "received",
                     status: "unread",
                 },
@@ -74,4 +74,18 @@ function loadChat() {
     }
 }
 
-export default loadChat;
+function loadUserInfo() {
+    const userData = {
+        fullName: "Rulan Alimkhan",
+        username: "amare",
+        bio: "Frontend Developer",
+        image: "https://wylsa.com/wp-content/uploads/2022/08/a224466_large.jpg",
+    };
+
+    if (!localStorage.getItem("userInfo")) {
+        localStorage.setItem("userInfo", JSON.stringify(userData));
+        console.log("User data loaded into localStorage");
+    }
+}
+
+export { loadChat, loadUserInfo };

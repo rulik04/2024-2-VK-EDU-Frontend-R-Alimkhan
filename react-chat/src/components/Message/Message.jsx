@@ -1,6 +1,8 @@
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import DoneIcon from "@mui/icons-material/Done";
 import "./Message.scss";
+import { formatTime } from "@/utils/dateUtils";
+
 export const Message = ({ message, isVisible }) => {
     return (
         <div
@@ -10,7 +12,7 @@ export const Message = ({ message, isVisible }) => {
         >
             <span className="message-content">{message.text}</span>
             <div className="message-time">
-                <span>{message.time}</span>
+                <span>{formatTime(message.time)}</span>
                 {message.type === "sent" &&
                     (message.status === "unread" ? (
                         <DoneIcon />
