@@ -1,5 +1,4 @@
-const BASE_URL = import.meta.env.VITE_API_URL;
-console.log("BASE_URL", BASE_URL);
+const BASE_URL = "https://vkedu-fullstack-div2.ru/api/";
 
 export const api = async (endpoint, options = {}) => {
     const accessToken = localStorage.getItem("accessToken");
