@@ -1,29 +1,30 @@
 import "./Header.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { getChatsFromStorage } from "@/utils/storageUtils";
-import { Dropdown } from "@/components/Dropdown/Dropdown";
+import { ChatDropdown } from "@/modules/ChatDropdown/ChatDropdown";
 import { Link, useLocation } from "react-router-dom";
-import { Sidebar } from "@/components/Sidebar/Sidebar";
+import { DEFAULT_CHAT_AVATAR } from "@/utils/messageConstants";
+
+// sidebar is a module, and it is allowed to import it here
+import { Sidebar } from "@/modules/Sidebar/Sidebar";
+
 import { SearchInput } from "../SearchInput/SearchInput";
 import { useState } from "react";
-
+import { formatDate, formatTime } from "@/utils/dateUtils";
 export const Header = ({
-    chatId = null,
+    title,
+    avatar = null,
+    is_online = null,
+    last_online_at = null,
     onBackClick = null,
     onSearchChange,
 }) => {
     const [isSearchActive, setIsSearchActive] = useState(false);
 
     const location = useLocation();
-    const chats = getChatsFromStorage();
 
-    let title = "Messenger";
     if (location.pathname === "/profile") {
         title = "Profile";
-    } else if (location.pathname.startsWith("/chat/")) {
-        const chat = chats.find((chat) => chat.chatId === parseInt(chatId));
-        title = chat ? chat.chatName : "Chat";
     }
 
     const isChatListPage = location.pathname === "/";
@@ -40,11 +41,7 @@ export const Header = ({
                             <ArrowBackIcon onClick={onBackClick} />
                         </Link>
                         <img
-                            src={
-                                chats.find(
-                                    (chat) => chat.chatId === parseInt(chatId)
-                                )?.avatar || "https://via.placeholder.com/50"
-                            }
+                            src={avatar || DEFAULT_CHAT_AVATAR}
                             alt="avatar"
                             className="avatar"
                         />
@@ -53,6 +50,16 @@ export const Header = ({
 
                 <div className="title-info">
                     <h3 className="title">{title}</h3>
+                    {isProfilePage && is_online !== null && is_online && (
+                        <p className="online">Online</p>
+                    )}
+
+                    {isProfilePage && last_online_at && (
+                        <p className="last-online">
+                            Был в сети {formatTime(last_online_at)}{" "}
+                            {formatDate(last_online_at)}
+                        </p>
+                    )}
                 </div>
             </div>
             <div className="header-info">
@@ -68,7 +75,7 @@ export const Header = ({
                         }}
                     />
                 )}
-                {!isChatListPage && !isProfilePage && <Dropdown />}
+                {!isChatListPage && !isProfilePage && <ChatDropdown />}
             </div>
         </header>
     );

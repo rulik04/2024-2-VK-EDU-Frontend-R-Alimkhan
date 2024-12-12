@@ -1,14 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { DEFAULT_AVATAR_URL } from "@/utils/messageConstants";
 import "./Sidebar.scss";
+import { getUserInfo } from "@/services/user";
+import { useNavigate } from "react-router-dom";
 
 export const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [userData, setUserData] = useState([]);
+    const navigate = useNavigate();
 
-    const userData = JSON.parse(localStorage.getItem("userInfo"));
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await getUserInfo();
+                setUserData(response);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchUserData();
+    }, []);
+
+    console.log("user data", userData);
 
     const handleToggle = () => {
         setIsOpen(!isOpen);
@@ -16,6 +33,12 @@ export const Sidebar = () => {
 
     const handleClose = () => {
         setIsOpen(false);
+    };
+
+    const logout = () => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        navigate("/login");
     };
 
     return (
@@ -31,11 +54,13 @@ export const Sidebar = () => {
             <div className={`sidebar ${isOpen ? "open" : ""}`}>
                 <div className="sidebar-header">
                     <img
-                        src={userData.image || DEFAULT_AVATAR_URL}
+                        src={userData.avatar || DEFAULT_AVATAR_URL}
                         alt=""
                         className="user_avatar"
                     />
-                    <h3>{userData.fullName}</h3>
+                    <h3>
+                        {userData.first_name} {userData.last_name}
+                    </h3>
                     <CloseIcon onClick={handleToggle} className="close-icon" />
                 </div>
                 <ul className="sidebar-menu">
@@ -46,7 +71,9 @@ export const Sidebar = () => {
                         <li className="sidebar-item">Chats</li>
                     </Link>
                     <li className="sidebar-item">Settings</li>
-                    <li className="sidebar-item">Logout</li>
+                    <li className="sidebar-item" onClick={logout}>
+                        Logout
+                    </li>
                 </ul>
             </div>
         </>

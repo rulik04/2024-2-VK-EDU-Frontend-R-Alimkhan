@@ -1,48 +1,63 @@
-import { useEffect, useState } from "react";
+import { useLongPolling } from "@/hooks/useLongPolling";
 import { Header } from "@/components/Header/Header";
-import { Footer } from "@/components/Footer/Footer";
-import "./PersonalChatPage.scss";
-import { markMessagesAsRead } from "@/utils/messageUtils";
-import { getChatsFromStorage, saveChatsToStorage } from "@/utils/storageUtils";
-import { Message } from "@/components/Message/Message";
+import { Footer } from "@/modules/Footer/Footer";
 import { useParams } from "react-router-dom";
-
+import "./PersonalChatPage.scss";
+import { useEffect, useState } from "react";
+import "./PersonalChatPage.scss";
+import { Message } from "@/components/Message/Message";
+import { getChatById, readAllMessages } from "@/services/chat";
 export const PersonalChatPage = () => {
     const { chatId } = useParams();
-    const chats = getChatsFromStorage();
-    const currentChat = chats.find((chat) => chat.chatId === parseInt(chatId));
-
-    if (!currentChat) {
-        alert("Chat not found!");
-        window.location.href = "/";
-    } else {
-        markMessagesAsRead(currentChat.messages);
-        saveChatsToStorage(chats);
-    }
-    const [visibleMessages, setVisibleMessages] = useState([]);
-
+    const userId = localStorage.getItem("userId");
+    const [currentChat, setCurrentChat] = useState(null);
+    const { messages, error } = useLongPolling(chatId);
+    readAllMessages(chatId);
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setVisibleMessages(currentChat.messages.map((_, index) => index));
-        }, 100);
-        return () => clearTimeout(timer);
-    }, [currentChat.messages]);
+        const fetchChat = async () => {
+            try {
+                const response = await getChatById(chatId);
+                setCurrentChat(response);
+            } catch (error) {
+                console.error("Error fetching chat:", error);
+            }
+        };
+
+        fetchChat();
+    }, [chatId]);
+    console.log("currentChat", currentChat);
+
+    if (error) {
+        return <p className="error">Error loading messages: {error}</p>;
+    }
 
     return (
         <div className="chat-container">
-            <Header title={currentChat.chatName} chatId={currentChat.chatId} />
-
-            <div className="main">
-                {currentChat.messages.map((message, index) => (
-                    <Message
-                        key={index}
-                        message={message}
-                        isVisible={visibleMessages.includes(index)}
+            {currentChat && messages ? (
+                <div className="chat-container">
+                    <Header
+                        title={currentChat.title}
+                        chatId={currentChat.id}
+                        avatar={currentChat.avatar}
+                        is_online={currentChat.members[1]?.is_online}
+                        last_online_at={currentChat.members[1]?.last_online_at}
                     />
-                ))}
-            </div>
 
-            <Footer chatId={chatId} />
+                    <div className="main">
+                        {messages.map((message) => (
+                            <Message
+                                key={message.id}
+                                message={message}
+                                userId={userId}
+                            />
+                        ))}
+                    </div>
+
+                    <Footer />
+                </div>
+            ) : (
+                <p>Loading chat...</p>
+            )}
         </div>
     );
 };
