@@ -1,5 +1,5 @@
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-console.log(BASE_URL);
+console.log("BASE_URL", BASE_URL);
 
 export const api = async (endpoint, options = {}) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -36,6 +36,7 @@ export const api = async (endpoint, options = {}) => {
             console.error("Parsed API error details:", error);
             throw new Error(error.message || "API error");
         } catch {
+            console.error("Failed to parse API error details", text);
             throw new Error("API returned non-JSON response");
         }
     }
