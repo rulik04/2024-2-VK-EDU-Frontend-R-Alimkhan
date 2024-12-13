@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getChatMessages } from "@/services/chat";
 
-export const useLongPolling = (chatId, interval = 10000) => {
+export const useLongPolling = (chatId, interval = 4000) => {
     const [messages, setMessages] = useState([]);
     const [error, setError] = useState(null);
 

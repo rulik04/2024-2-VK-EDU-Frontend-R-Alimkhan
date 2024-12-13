@@ -39,10 +39,15 @@ export const getUserById = async (userId) => {
 
 export const updateUser = async (userId, data) => {
     const formData = new FormData();
+
     for (const key in data) {
-        formData.append(key, data[key]);
-        console.log(key, data[key], typeof data[key]);
+        if (key === "avatar" && data[key] instanceof File) {
+            formData.append(key, data[key]);
+        } else if (key !== "avatar") {
+            formData.append(key, data[key]);
+        }
     }
+
     const response = await api(`user/${userId}/`, {
         method: "PATCH",
         body: formData,
