@@ -1,0 +1,99 @@
+.user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.user-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #f0f0f0;
+        cursor: pointer;
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.user-avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.create-chat-button {
+    background-color: #008069;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.user-select-button {
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &.selected {
+        background-color: #008069;
+        color: white;
+        font-weight: bold;
+    }
+}
+
+.user-select-circle {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #008069;
+    border-radius: 50%;
+    margin-left: auto;
+    transition: background-color 0.2s;
+
+    &.selected {
+        background-color: #008069;
+    }
+}
+
+#chatName {
+    margin-left: 10px;
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+
+    &:focus {
+        border-color: #008069;
+        box-shadow: 0 0 5px rgba(0, 128, 105, 0.5);
+        outline: none;
+    }
+}
