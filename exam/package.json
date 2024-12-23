@@ -3,7 +3,7 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
-    "homepage": "https://rulik04.github.io/translation/",
+    "homepage": "https://rulik04.github.io/2024-2-VK-EDU-Frontend-R-Alimkhan/",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
