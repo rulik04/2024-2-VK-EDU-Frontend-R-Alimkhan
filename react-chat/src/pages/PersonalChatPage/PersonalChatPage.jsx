@@ -7,11 +7,15 @@ import { useEffect, useState } from "react";
 import "./PersonalChatPage.scss";
 import { Message } from "@/components/Message/Message";
 import { getChatById, readAllMessages } from "@/services/chat";
+import { SendFileModal } from "@/modules/SendFileModal/SendFileModal";
+
 export const PersonalChatPage = () => {
     const { chatId } = useParams();
     const userId = localStorage.getItem("userId");
     const [currentChat, setCurrentChat] = useState(null);
     const { messages, error } = useLongPolling(chatId);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     readAllMessages(chatId);
     useEffect(() => {
         const fetchChat = async () => {
@@ -25,7 +29,7 @@ export const PersonalChatPage = () => {
 
         fetchChat();
     }, [chatId]);
-    console.log("currentChat", currentChat);
+    //console.log("currentChat", currentChat);
 
     if (error) {
         return <p className="error">Error loading messages: {error}</p>;
@@ -53,7 +57,12 @@ export const PersonalChatPage = () => {
                         ))}
                     </div>
 
-                    <Footer />
+                    <SendFileModal
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                    />
+
+                    <Footer onOpenModal={() => setIsModalOpen(true)} />
                 </div>
             ) : (
                 <p>Loading chat...</p>

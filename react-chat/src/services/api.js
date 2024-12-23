@@ -1,4 +1,6 @@
-const BASE_URL = "https://vkedu-fullstack-div2.ru/api/";
+// const BASE_URL = "https://vkedu-fullstack-div2.ru/api/";
+
+const BASE_URL = "http://localhost:8080/api/";
 
 export const api = async (endpoint, options = {}) => {
     const accessToken = localStorage.getItem("accessToken");

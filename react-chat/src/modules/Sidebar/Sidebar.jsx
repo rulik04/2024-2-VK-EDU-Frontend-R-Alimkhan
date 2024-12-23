@@ -25,7 +25,7 @@ export const Sidebar = () => {
         fetchUserData();
     }, []);
 
-    console.log("user data", userData);
+    //console.log("user data", userData);
 
     const handleToggle = () => {
         setIsOpen(!isOpen);

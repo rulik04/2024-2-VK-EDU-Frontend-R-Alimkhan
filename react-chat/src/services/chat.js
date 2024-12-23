@@ -56,12 +56,33 @@ export const getChatMessages = async (chatId) => {
     return response;
 };
 
-export const sendMessage = async (chatId, message) => {
-    const messageData = { chat: chatId, text: message };
+export const sendMessage = async (chatId, formData) => {
+    // const messageData = {
+    //     chat: chatId,
+    //     voice: voice,
+    //     text: text,
+    //     files: files,
+    // };
+
+    //const formData = new FormData();
+
+    // Append chatId to the form data
+    // formData.append("chat", chatId);
+
+    // // Append files to the form data
+    // files.forEach((file) => {
+    //     formData.append("files", file);
+    // });
+
+    // // Append voice to the form data
+    // formData.append("voice", voice);
+
+    // // Append text to the form data
+    // formData.append("text", text);
+
     const response = await api(`messages/`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(messageData),
+        body: formData,
     });
     return response;
 };

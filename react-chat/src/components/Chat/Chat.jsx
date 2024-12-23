@@ -3,17 +3,26 @@ import CheckIcon from "@mui/icons-material/Check";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { formatTime, formatDate } from "@/utils/dateUtils";
 import { DEFAULT_CHAT_AVATAR } from "@/utils/messageConstants";
+
 export const Chat = ({ chat }) => {
-    console.log("chat", chat);
+    //console.log("chat", chat);
 
     const { title, last_message, updated_at, avatar, unread_messages_count } =
         chat;
     const truncatedMessage =
-        last_message?.text.length > 20
-            ? last_message?.text.slice(0, 20) + "..."
+        last_message?.text?.length > 20
+            ? last_message?.text?.slice(0, 20) + "..."
             : last_message?.text;
 
-    console.log("last_message", truncatedMessage);
+    const messageFiles = last_message?.files
+        .map((file) => file.item.split("/").pop())
+        .join(", ");
+
+    const truncatedMessageFiles =
+        messageFiles?.length > 40
+            ? messageFiles.slice(0, 40) + "..."
+            : messageFiles;
+
     return (
         <div className="chat">
             <img
@@ -24,7 +33,7 @@ export const Chat = ({ chat }) => {
 
             <div className="chat-main">
                 <h2>{title}</h2>
-                <p>{truncatedMessage}</p>
+                <p>{truncatedMessage || truncatedMessageFiles}</p>
             </div>
 
             <div className="chat-info">

@@ -11,7 +11,7 @@ export const useLongPolling = (chatId, interval = 4000) => {
         const fetchMessages = async () => {
             try {
                 const response = await getChatMessages(chatId);
-                console.log("messages from chat.js:", response);
+                //console.log("messages from chat.js:", response);
                 if (isMounted) {
                     setMessages(response.results);
                 }

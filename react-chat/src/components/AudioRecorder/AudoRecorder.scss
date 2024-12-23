@@ -1,0 +1,74 @@
+.audio-recorder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.recording-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: red;
+    font-weight: bold;
+}
+
+.dot-animation {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: red;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.audio-wave {
+    width: 100%;
+    height: 50px;
+    background: repeating-linear-gradient(
+        90deg,
+        #d1d1d1,
+        #d1d1d1 10px,
+        #e1e1e1 10px,
+        #e1e1e1 20px
+    );
+    animation: move 2s linear infinite;
+}
+
+@keyframes move {
+    from {
+        background-position: 0;
+    }
+    to {
+        background-position: 100%;
+    }
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+}
+
+.icon {
+    cursor: pointer;
+    color: gray;
+    transition: color 0.2s;
+}
+
+.icon:hover {
+    color: black;
+}
+
+.send {
+    color: green;
+    cursor: pointer;
+}
