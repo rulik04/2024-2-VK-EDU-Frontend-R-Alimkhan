@@ -14,12 +14,26 @@ const TranslationForm = ({ languages, onTranslate }) => {
     const [translation, setTranslation] = useState("");
 
     useEffect(() => {
-        if (text.trim()) {
-            onTranslate(text, fromLanguage, toLanguage, setTranslation);
-        } else {
+        const trimmedText = text.trim();
+        if (!trimmedText) {
             setTranslation("");
+            return;
         }
-    }, [text, fromLanguage, toLanguage]);
+        const timerId = setTimeout(async () => {
+            try {
+                await onTranslate(
+                    trimmedText,
+                    fromLanguage,
+                    toLanguage,
+                    setTranslation
+                );
+            } catch (err) {
+                console.error("Translation error:", err);
+                setTranslation("Error translating text.");
+            }
+        }, 100);
+        return () => clearTimeout(timerId);
+    }, [text, fromLanguage, toLanguage, onTranslate]);
 
     return (
         <form className="p-4 flex">
@@ -28,12 +42,13 @@ const TranslationForm = ({ languages, onTranslate }) => {
                     languages={languages}
                     value={fromLanguage}
                     onChange={setFromLanguage}
+                    isTargetLanguage={false}
                 />
                 <textarea
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     placeholder="Enter text to translate"
-                    className="w-full p-2 border rounded mb-4"
+                    className="w-full p-2 border rounded mb-4 min-h-24"
                 />
             </div>
             <div className="">
@@ -41,10 +56,11 @@ const TranslationForm = ({ languages, onTranslate }) => {
                     languages={languages}
                     value={toLanguage}
                     onChange={setToLanguage}
+                    isTargetLanguage={true}
                 />
                 <textarea
                     defaultValue={translation}
-                    className="w-full p-2 border rounded mb-4"
+                    className="w-full p-2 border rounded mb-4 min-h-24"
                 />
             </div>
         </form>
