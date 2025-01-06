@@ -146,3 +146,26 @@
     margin-left: 10px;
     font-size: 24px;
 }
+
+.audio-recorder {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.location {
+    cursor: pointer;
+    color: #1976d2;
+
+    &:hover {
+        color: #0d47a1;
+    }
+}

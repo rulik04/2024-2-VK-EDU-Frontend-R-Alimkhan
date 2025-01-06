@@ -5,8 +5,6 @@ import { formatTime, formatDate } from "@/utils/dateUtils";
 import { DEFAULT_CHAT_AVATAR } from "@/utils/messageConstants";
 
 export const Chat = ({ chat }) => {
-    //console.log("chat", chat);
-
     const { title, last_message, updated_at, avatar, unread_messages_count } =
         chat;
     const truncatedMessage =
@@ -33,7 +31,11 @@ export const Chat = ({ chat }) => {
 
             <div className="chat-main">
                 <h2>{title}</h2>
-                <p>{truncatedMessage || truncatedMessageFiles}</p>
+                <p>
+                    {truncatedMessage ||
+                        truncatedMessageFiles ||
+                        "Voice message"}
+                </p>
             </div>
 
             <div className="chat-info">

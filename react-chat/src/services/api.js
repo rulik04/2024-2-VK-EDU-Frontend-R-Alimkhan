@@ -1,6 +1,6 @@
-// const BASE_URL = "https://vkedu-fullstack-div2.ru/api/";
+const BASE_URL = "https://vkedu-fullstack-div2.ru/api/";
 
-const BASE_URL = "http://localhost:8080/api/";
+// const BASE_URL = "http://localhost:8080/api/";
 
 export const api = async (endpoint, options = {}) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -12,8 +12,6 @@ export const api = async (endpoint, options = {}) => {
             !shouldSkipAuth && { Authorization: `Bearer ${accessToken}` }),
         ...options.headers,
     };
-
-    //console.log("headers", headers);
 
     const isFormData = options.body instanceof FormData;
 
