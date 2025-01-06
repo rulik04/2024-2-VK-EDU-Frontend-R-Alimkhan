@@ -1,7 +1,5 @@
 const BASE_URL = "https://vkedu-fullstack-div2.ru/api/";
 
-// const BASE_URL = "http://localhost:8080/api/";
-
 export const api = async (endpoint, options = {}) => {
     const accessToken = localStorage.getItem("accessToken");
 
@@ -50,7 +48,6 @@ const refreshTokens = async () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         console.error("Redirecting to regioster page...");
-        window.location.hash = "/register";
         return;
     }
 
@@ -73,6 +70,5 @@ const refreshTokens = async () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         console.error("Redirecting to login page...");
-        window.location.hash = "/login";
     }
 };
