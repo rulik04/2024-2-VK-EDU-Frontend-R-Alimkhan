@@ -9,13 +9,12 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: 20
-
-            - name: Run ESLint
-              working-directory: ./react-chat
-              run: npm run lint
             - name: Install npm deps
               working-directory: ./react-chat
               run: npm i
+            - name: Run ESLint
+              working-directory: ./react-chat
+              run: npm run lint
             - name: Build app
               working-directory: ./react-chat
               run: npm run build
