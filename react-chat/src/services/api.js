@@ -11,8 +11,6 @@ export const api = async (endpoint, options = {}) => {
         ...options.headers,
     };
 
-    //console.log("headers", headers);
-
     const isFormData = options.body instanceof FormData;
 
     const response = await fetch(`${BASE_URL}${endpoint}`, {
