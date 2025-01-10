@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getChatMessages } from "@/services/chat";
 
-export const useLongPolling = (chatId, interval = 4000) => {
+export const useLongPollingForMessages = (chatId, interval = 4000) => {
     const [messages, setMessages] = useState([]);
     const [error, setError] = useState(null);
 
@@ -16,7 +16,7 @@ export const useLongPolling = (chatId, interval = 4000) => {
                 }
             } catch (err) {
                 if (isMounted) {
-                    setError(err.message || "Error fetching messages");
+                    setError(err.message || "Ошибка получения сообщений");
                 }
             } finally {
                 if (isMounted) {

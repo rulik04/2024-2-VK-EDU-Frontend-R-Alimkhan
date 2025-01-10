@@ -42,3 +42,18 @@
         }
     }
 }
+
+.message-image {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+    border: 1px solid var(--border-color);
+}
+
+.message-file {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 5px;
+    background-color: var(--background-color);
+}

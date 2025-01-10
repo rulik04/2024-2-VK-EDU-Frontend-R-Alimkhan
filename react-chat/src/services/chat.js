@@ -56,12 +56,10 @@ export const getChatMessages = async (chatId) => {
     return response;
 };
 
-export const sendMessage = async (chatId, message) => {
-    const messageData = { chat: chatId, text: message };
+export const sendMessage = async (chatId, formData) => {
     const response = await api(`messages/`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(messageData),
+        body: formData,
     });
     return response;
 };

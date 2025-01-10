@@ -6,7 +6,7 @@ import { UserListModal } from "@/modules/UserListModal/UserListModal";
 import { getAllUsers } from "@/services/user";
 import { useEffect } from "react";
 
-export const ChatListPage = () => {
+export const ChatListPage = ({ chats }) => {
     const [searchQuery, setSearchQuery] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -31,7 +31,7 @@ export const ChatListPage = () => {
                 title="Messenger"
                 onSearchChange={(query) => setSearchQuery(query)}
             />
-            <ChatList searchQuery={searchQuery} />
+            <ChatList searchQuery={searchQuery} chats={chats} />
             <FloatingButton onOpenModal={() => setIsModalOpen(true)} />
 
             <UserListModal

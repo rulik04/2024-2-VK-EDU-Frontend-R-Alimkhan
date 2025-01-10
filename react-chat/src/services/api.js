@@ -48,7 +48,6 @@ const refreshTokens = async () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         console.error("Redirecting to regioster page...");
-        window.location.hash = "/register";
         return;
     }
 
@@ -71,6 +70,5 @@ const refreshTokens = async () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         console.error("Redirecting to login page...");
-        window.location.hash = "/login";
     }
 };

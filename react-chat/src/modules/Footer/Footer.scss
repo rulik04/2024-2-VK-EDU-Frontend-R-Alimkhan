@@ -34,4 +34,138 @@
 
 .attachment:hover {
     color: #008069;
+    cursor: pointer;
+}
+
+// .camera,
+// .mic {
+//     &:hover {
+//         color: #008069;
+//         cursor: pointer;
+//     }
+// }
+
+// .mic.active,
+// .camera.active {
+//     color: red;
+//     animation: pulse 1s infinite;
+// }
+
+// @keyframes pulse {
+//     0% {
+//         transform: scale(1);
+//     }
+//     50% {
+//         transform: scale(1.2);
+//     }
+//     100% {
+//         transform: scale(1);
+//     }
+// }
+
+// .audio-recorder {
+//     display: flex;
+//     align-items: center;
+//     gap: 10px;
+// }
+
+// .recording-indicator {
+//     display: flex;
+//     align-items: center;
+//     gap: 8px;
+//     font-size: 14px;
+//     color: red;
+//     font-weight: bold;
+// }
+
+// .dot {
+//     width: 10px;
+//     height: 10px;
+//     border-radius: 50%;
+//     background-color: red;
+//     animation: blink 1s infinite;
+// }
+
+// @keyframes blink {
+//     0%,
+//     100% {
+//         opacity: 1;
+//     }
+//     50% {
+//         opacity: 0.5;
+//     }
+// }
+
+// .icon {
+//     cursor: pointer;
+//     font-size: 24px;
+// }
+
+// .stop-button {
+//     padding: 6px 12px;
+//     background-color: #d9534f;
+//     color: white;
+//     border: none;
+//     border-radius: 4px;
+//     cursor: pointer;
+// }
+
+// .stop-button:hover {
+//     background-color: #c9302c;
+// }
+
+.recording-indicator {
+    color: red;
+    font-weight: bold;
+    margin-right: 10px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.mic {
+    color: red;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 24px;
+}
+
+.stop {
+    color: green;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 24px;
+}
+
+.audio-recorder {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.location {
+    cursor: pointer;
+    color: #1976d2;
+
+    &:hover {
+        color: #0d47a1;
+    }
 }

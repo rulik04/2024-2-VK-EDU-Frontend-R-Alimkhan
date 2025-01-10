@@ -10,13 +10,5 @@ export default defineConfig({
             "@": "/src",
         },
     },
-    server: {
-        proxy: {
-            "/api": {
-                target: "https://vkedu-fullstack-div2.ru",
-                changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, ""),
-            },
-        },
-    },
+    server: {},
 });
